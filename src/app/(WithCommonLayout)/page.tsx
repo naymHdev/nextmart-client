@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 const HomePage = () => {
   return (
     <div className="">
-      <Button>Click me</Button>
+      <Button>Welcome to Home Page</Button>
     </div>
   );
 };
