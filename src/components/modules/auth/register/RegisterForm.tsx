@@ -12,11 +12,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { registrationSchema } from "./registerValidation";
 
 const RegisterForm = () => {
-  const form = useForm();
+  const form = useForm({
+    resolver: zodResolver(registrationSchema),
+  });
+
+  const password = form.watch("password");
+  const passwordConfirm = form.watch("passwordConfirm");
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     console.log("data", data);
@@ -35,7 +42,7 @@ const RegisterForm = () => {
           </div>
         </div>
         <Form {...form}>
-          <form className="mt-6" onSubmit={form.handleSubmit(onSubmit)}>
+          <form className="mt-5" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="name"
@@ -103,12 +110,20 @@ const RegisterForm = () => {
                       placeholder="Again Enter your password"
                     />
                   </FormControl>
-                  <FormDescription />
-                  <FormMessage />
+                  {passwordConfirm && password !== passwordConfirm ? (
+                    <FormMessage> Password does not match </FormMessage>
+                  ) : (
+                    <FormMessage />
+                  )}
                 </FormItem>
               )}
             />
-            <Button>Register</Button>
+            <Button
+              disabled={passwordConfirm && password !== passwordConfirm}
+              className="mt-5 w-full"
+            >
+              Register
+            </Button>
           </form>
         </Form>
         <p className="text-sm text-gray-600 text-center my-3">
