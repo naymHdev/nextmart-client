@@ -1,5 +1,8 @@
+import Link from "next/link";
+
 export default function Logo() {
-    return (
+  return (
+    <Link href="/">
       <svg
         id="logo-72"
         width="35"
@@ -14,5 +17,6 @@ export default function Logo() {
           fill="#212326"
         ></path>
       </svg>
-    );
-  }
+    </Link>
+  );
+}

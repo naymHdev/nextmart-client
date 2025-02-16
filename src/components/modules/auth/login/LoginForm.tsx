@@ -52,7 +52,6 @@ const LoginForm = () => {
     const toastId = toast.loading("Loging....");
     try {
       const res = await loginUser(data);
-      // console.log("res--------->", res);
       if (res?.success) {
         toast.error(res?.message, { id: toastId });
         if (redirect) {
@@ -64,7 +63,7 @@ const LoginForm = () => {
         toast.error(res?.message, { id: toastId });
       }
     } catch (error: any) {
-      console.log("login form error", error);
+      console.error("login form error", error);
     }
   };
 
