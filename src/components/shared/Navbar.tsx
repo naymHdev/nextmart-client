@@ -48,11 +48,8 @@ export default function Navbar() {
           </Button>
           {user ? (
             <>
-              {" "}
               <Link href="/create-shop">
-                <Button variant="outline" className="rounded-full">
-                  Create Shop
-                </Button>
+                <Button className="rounded-full text-secondary">Create Shop</Button>
               </Link>
               <DropdownMenu>
                 <DropdownMenuTrigger>
