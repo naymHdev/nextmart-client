@@ -16,13 +16,20 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "../ui/input";
 import { logout } from "@/services/authService";
 import { useUser } from "@/contexts/UserContext";
+import { usePathname, useRouter } from "next/navigation";
+import { protectedRoutes } from "@/constants";
 
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleLogout = () => {
     logout();
     setIsLoading(true);
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/");
+    }
   };
 
   return (
@@ -49,7 +56,9 @@ export default function Navbar() {
           {user ? (
             <>
               <Link href="/create-shop">
-                <Button className="rounded-full text-secondary">Create Shop</Button>
+                <Button className="rounded-full text-secondary">
+                  Create Shop
+                </Button>
               </Link>
               <DropdownMenu>
                 <DropdownMenuTrigger>
