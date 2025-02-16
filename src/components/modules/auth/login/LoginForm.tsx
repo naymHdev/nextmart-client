@@ -19,6 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginValidationSchema } from "./loginValidation";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LoginForm = () => {
   const form = useForm({
@@ -26,6 +27,10 @@ const LoginForm = () => {
   });
 
   const [reCaptchStatus, setReCaptchaStatus] = useState(false);
+
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirectPath");
+  const router = useRouter();
 
   const {
     formState: { isSubmitting },
@@ -39,7 +44,7 @@ const LoginForm = () => {
         setReCaptchaStatus(true);
       }
     } catch (error: any) {
-      console.log("captcha error", error);
+      console.error("captcha error", error);
     }
   };
 
@@ -50,6 +55,11 @@ const LoginForm = () => {
       // console.log("res--------->", res);
       if (res?.success) {
         toast.error(res?.message, { id: toastId });
+        if (redirect) {
+          router.push(redirect);
+        } else {
+          router.push("/profile");
+        }
       } else {
         toast.error(res?.message, { id: toastId });
       }
@@ -110,11 +120,12 @@ const LoginForm = () => {
             />
 
             <ReCAPTCHA
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_CLIENT_KEY}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_CLIENT_KEY!}
               onChange={handleRecaptcha}
             />
 
             <Button
+              type="submit"
               disabled={reCaptchStatus ? false : true}
               className="mt-5 w-full"
             >
