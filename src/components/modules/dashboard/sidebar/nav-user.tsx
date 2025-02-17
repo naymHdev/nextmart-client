@@ -79,7 +79,7 @@ export function NavUser() {
               </div>
             </DropdownMenuLabel>
 
-            <DropdownMenuItem onClick={() => handleLogout()}>
+            <DropdownMenuItem className=" cursor-pointer text-secondary bg-primary" onClick={() => handleLogout()}>
               <LogOut />
               Log out
             </DropdownMenuItem>
