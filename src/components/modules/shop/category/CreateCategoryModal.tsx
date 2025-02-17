@@ -35,6 +35,8 @@ export function CreateCategoryModal() {
   } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log(data);
+
     try {
       const formData = new FormData();
       formData.append("data", JSON.stringify(data));
@@ -42,7 +44,7 @@ export function CreateCategoryModal() {
 
       const res = await createCategory(formData);
 
-      console.log("formData", res);
+      // console.log("response--------------++", res);
 
       if (res?.success) {
         toast.success(res?.message);

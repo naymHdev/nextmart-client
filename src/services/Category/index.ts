@@ -11,6 +11,7 @@ export const createCategory = async (data: FormData) => {
       },
       body: data,
     });
+
     return res.json();
   } catch (error: any) {
     return Error(error);
