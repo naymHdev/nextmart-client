@@ -6,14 +6,41 @@ import { NMTable } from "@/components/ui/core/NMTable";
 import Image from "next/image";
 import { ColumnDef } from "@tanstack/react-table";
 import { Trash } from "lucide-react";
+import { useState } from "react";
+import DeleteConfirmationModal from "@/components/ui/core/NMModal/DeleteConfirmationModal";
+import { toast } from "sonner";
+import { deleteCategory } from "@/services/Category";
 
 type TCategoriesProps = {
   categories: ICategory[];
 };
 
 const ManageCategories = ({ categories }: TCategoriesProps) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+
   const handleDelete = (data: ICategory) => {
-    console.log(data);
+    setSelectedId(data?._id);
+    setSelectedItem(data?.name);
+    setModalOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    try {
+      if (selectedId) {
+        const res = await deleteCategory(selectedId);
+        // console.log(res);
+        if (res.success) {
+          toast.success(res.message);
+          setModalOpen(false);
+        } else {
+          toast.error(res.message);
+        }
+      }
+    } catch (err: any) {
+      console.error(err?.message);
+    }
   };
 
   const columns: ColumnDef<ICategory>[] = [
@@ -67,10 +94,18 @@ const ManageCategories = ({ categories }: TCategoriesProps) => {
 
   return (
     <>
-      <div className=" flex items-center justify-between">
-        <h1 className=" text-xl font-black">Manage Categories</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-black">Manage Categories</h1>
         <CreateCategoryModal />
+      </div>
+      <div className=" mt-8">
         <NMTable data={categories} columns={columns} />
+        <DeleteConfirmationModal
+          name={selectedItem}
+          isOpen={isModalOpen}
+          onOpenChange={setModalOpen}
+          onConfirm={handleDeleteConfirm}
+        />
       </div>
     </>
   );
