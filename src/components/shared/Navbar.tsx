@@ -1,6 +1,6 @@
 "use client";
 
-import Logo from "@/app/assets/svgs/Logo";
+import Logo from "../../assets/svgs/Logo";
 import { Button } from "../ui/button";
 import { Heart, LogOut, ShoppingBag, User } from "lucide-react";
 import Link from "next/link";

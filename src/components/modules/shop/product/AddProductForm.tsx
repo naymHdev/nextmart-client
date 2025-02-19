@@ -33,7 +33,7 @@ import { getAllCategories } from "@/services/Category";
 import { getAllBrands } from "@/services/Brand";
 import { ICategory } from "@/types/category.types";
 import { IBrand } from "@/types/brand.type";
-import Logo from "@/app/assets/svgs/Logo";
+import Logo from "../../../../assets/svgs/Logo";
 import { useRouter } from "next/navigation";
 import { addProduct } from "@/services/product";
 import { toast } from "sonner";

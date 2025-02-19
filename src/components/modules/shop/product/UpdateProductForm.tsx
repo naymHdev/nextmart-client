@@ -31,7 +31,7 @@ import {
 import { getAllBrands } from "@/services/Brand";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import Logo from "@/app/assets/svgs/Logo";
+import Logo from "../../../../assets/svgs/Logo";
 import { IProduct } from "@/types/product.type";
 import { ICategory } from "@/types/category.types";
 import { IBrand } from "@/types/brand.type";

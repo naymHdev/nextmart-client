@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sidebar";
 import { NavMain } from "./nav-main";
 import Link from "next/link";
-import Logo from "@/app/assets/svgs/Logo";
+import Logo from "../../../../assets/svgs/Logo";
 import { NavUser } from "./nav-user";
 
 // This is sample data.
