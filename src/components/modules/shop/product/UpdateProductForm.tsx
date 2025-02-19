@@ -21,8 +21,6 @@ import { useEffect, useState } from "react";
 import NMImageUploader from "@/components/ui/core/NMImageUploader";
 import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
 import { Plus } from "lucide-react";
-import Logo from "@/assets/svgs/Logo";
-
 import {
   Select,
   SelectContent,
@@ -30,12 +28,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { IBrand, ICategory, IProduct } from "@/types";
-import { getAllCategories } from "@/services/Category";
 import { getAllBrands } from "@/services/Brand";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { updateProduct } from "@/services/Product";
+import Logo from "@/app/assets/svgs/Logo";
+import { IProduct } from "@/types/product.type";
+import { ICategory } from "@/types/category.types";
+import { IBrand } from "@/types/brand.type";
+import { getAllCategories } from "@/services/Category";
+import { updateProduct } from "@/services/product";
 
 export default function UpdateProductForm({ product }: { product: IProduct }) {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);

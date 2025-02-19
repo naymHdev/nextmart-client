@@ -34,6 +34,9 @@ import { getAllBrands } from "@/services/Brand";
 import { ICategory } from "@/types/category.types";
 import { IBrand } from "@/types/brand.type";
 import Logo from "@/app/assets/svgs/Logo";
+import { useRouter } from "next/navigation";
+import { addProduct } from "@/services/product";
+import { toast } from "sonner";
 
 export default function AddProductsForm() {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
@@ -41,7 +44,7 @@ export default function AddProductsForm() {
   const [categories, setCategories] = useState<ICategory[] | []>([]);
   const [brands, setBrands] = useState<IBrand[] | []>([]);
 
-//   const router = useRouter();
+  const router = useRouter();
 
   const form = useForm({
     defaultValues: {
@@ -120,7 +123,7 @@ export default function AddProductsForm() {
         (specification[item.key] = item.value)
     );
 
-    console.log({ availableColors, keyFeatures, specification });
+    // console.log({ availableColors, keyFeatures, specification });
 
     const modifiedData = {
       ...data,
@@ -138,22 +141,24 @@ export default function AddProductsForm() {
     for (const file of imageFiles) {
       formData.append("images", file);
     }
-    // try {
-    //   const res = await addProduct(formData);
+    try {
+      const res = await addProduct(formData);
 
-    //   if (res.success) {
-    //     toast.success(res.message);
-    //     router.push("/user/shop/products");
-    //   } else {
-    //     toast.error(res.message);
-    //   }
-    // } catch (err: any) {
-    //   console.error(err);
-    // }
+      console.log('res', res);
+
+      if (res.success) {
+        toast.success(res.message);
+        router.push("/user/shop/products");
+      } else {
+        toast.error(res.message);
+      }
+    } catch (err: any) {
+      console.error(err);
+    }
   };
 
   return (
-    <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-2xl p-5 ">
+    <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-3xl p-5 ">
       <div className="flex items-center space-x-4 mb-5 ">
         <Logo />
 
