@@ -10,7 +10,7 @@ const ProductDetails = ({ product }: { product: IProduct }) => {
             <div className="border rounded-3xl my-10 grid grid-cols-2 gap-8 p-4">
                 <div>
                     <Image src={product.imageUrls[0]} alt="Product Image" width={500} height={500} className=" rounded-md w-full object-cover" />
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-4 mt-4">
                         {
                             product.imageUrls?.map((img, idx) => <Image key={idx} src={img} alt="Product Image" width={200} height={100} className=" rounded-md w-full object-cover" />)
                         }
