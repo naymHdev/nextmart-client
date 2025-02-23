@@ -68,6 +68,12 @@ const cartSlice = createSlice({
     updateShippingAddress: (state, action) => {
       state.shippingAddress = action.payload;
     },
+
+    clearCart: (state) => {
+      state.products = [];
+      state.city = "";
+      state.shippingAddress = "";
+    },
   },
 });
 
@@ -139,6 +145,7 @@ export const {
   removeProduct,
   updateCity,
   updateShippingAddress,
+  clearCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

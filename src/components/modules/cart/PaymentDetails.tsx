@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useUser } from "@/contexts/UserContext";
 import {
   citySelector,
+  clearCart,
   grandTotalSelector,
   orderdProductSelector,
   orderSelector,
@@ -11,7 +12,7 @@ import {
   shippingCostSelector,
   subTotalSelector,
 } from "@/redux/features/cartSlice";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { createOrder } from "@/services/cart";
 import { currencyFormatter } from "@/utils/currencyFormatter";
 import { useRouter } from "next/navigation";
@@ -30,7 +31,7 @@ export default function PaymentDetails() {
 
   const router = useRouter();
 
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const handleOrder = async () => {
     const orderLoading = toast.loading("Order is being placed");
@@ -52,6 +53,16 @@ export default function PaymentDetails() {
         throw new Error("Cart is empty, what are you trying to order ??");
       }
       const res = await createOrder(order);
+
+      if (res.success) {
+        toast.success(res.message, { id: orderLoading });
+        dispatch(clearCart());
+        router.push(res.data.paymentUrl);
+      }
+
+      if (!res.success) {
+        toast.error(res.message, { id: orderLoading });
+      }
 
       console.log("responce", res);
     } catch (error: any) {
