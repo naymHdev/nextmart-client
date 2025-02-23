@@ -6,6 +6,7 @@ import {
   removeProduct,
 } from "@/redux/features/cartSlice";
 import { useAppDispatch } from "@/redux/hooks";
+import { currencyFormatter } from "@/utils/currencyFormatter";
 import { Minus, Plus, Trash } from "lucide-react";
 import Image from "next/image";
 
@@ -55,8 +56,8 @@ export default function CartProductCard({
           <h2>
             Price:
             {product.offerPrice
-              ? product.offerPrice?.toFixed(2)
-              : product.price?.toFixed(2)}
+              ? currencyFormatter(product.offerPrice)
+              : currencyFormatter(product.price)}
           </h2>
           <div className="flex items-center gap-2">
             <p className="text-gray-500 font-semibold">Quantity</p>
