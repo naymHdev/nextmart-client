@@ -5,6 +5,8 @@ import { useUser } from "@/contexts/UserContext";
 import {
   citySelector,
   clearCart,
+  couponSelector,
+  discountAmountSelector,
   grandTotalSelector,
   orderdProductSelector,
   orderSelector,
@@ -22,10 +24,12 @@ export default function PaymentDetails() {
   const subTotal = useAppSelector(subTotalSelector);
   const shippingCost = useAppSelector(shippingCostSelector);
   const order = useAppSelector(orderSelector);
+  const discountAmount = useAppSelector(discountAmountSelector);
   const grandTotal = useAppSelector(grandTotalSelector);
   const city = useAppSelector(citySelector);
   const shippingAddress = useAppSelector(shippingAddressSelector);
   const cartProducts = useAppSelector(orderdProductSelector);
+  const coupon = useAppSelector(couponSelector);
 
   const user = useUser();
 
@@ -52,7 +56,14 @@ export default function PaymentDetails() {
       if (cartProducts.length === 0) {
         throw new Error("Cart is empty, what are you trying to order ??");
       }
-      const res = await createOrder(order);
+
+      let orderData;
+      if (coupon.code) {
+        orderData = { ...order, coupon: coupon.code };
+      } else {
+        orderData = order;
+      }
+      const res = await createOrder(orderData);
 
       if (res.success) {
         toast.success(res.message, { id: orderLoading });
@@ -80,7 +91,7 @@ export default function PaymentDetails() {
         </div>
         <div className="flex justify-between">
           <p className="text-gray-500 ">Discount</p>
-          <p className="font-semibold">0</p>
+          <p className="font-semibold">{currencyFormatter(discountAmount)}</p>
         </div>
         <div className="flex justify-between">
           <p className="text-gray-500 ">Shipment Cost</p>

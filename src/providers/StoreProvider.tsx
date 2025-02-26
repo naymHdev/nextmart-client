@@ -17,9 +17,9 @@ const StoreProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <Provider store={storeRef.current}>
-      <PersistGate loading={null} persistor={persistor}>
-        {children}
-      </PersistGate>
+      {/* <PersistGate loading={null} persistor={persistor}> */}
+      {children}
+      {/* </PersistGate> */}
     </Provider>
   );
 };

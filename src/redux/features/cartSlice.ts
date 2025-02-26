@@ -51,7 +51,6 @@ export const fetchCoupon = createAsyncThunk(
         throw new Error(res.message);
       }
 
-      console.log(res);
       return res;
     } catch (err: any) {
       console.log(err);
@@ -193,9 +192,20 @@ export const shippingCostSelector = (state: RootState) => {
 };
 
 export const grandTotalSelector = (state: RootState) => {
-  const subtotal = subTotalSelector(state);
+  const subTotal = subTotalSelector(state);
   const shippingCost = shippingCostSelector(state);
-  return subtotal + shippingCost;
+  const discountAmount = discountAmountSelector(state);
+
+  // return subTotal + shippingCost;
+  return subTotal - discountAmount + shippingCost;
+};
+
+export const couponSelector = (state: RootState) => {
+  return state.cart.coupon;
+};
+
+export const discountAmountSelector = (state: RootState) => {
+  return state.cart.coupon.discountAmount;
 };
 
 // * Address

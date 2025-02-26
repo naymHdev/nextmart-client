@@ -8,6 +8,7 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { toast } from "sonner";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
+  couponSelector,
   fetchCoupon,
   shopSelector,
   subTotalSelector,
@@ -16,6 +17,7 @@ import {
 export default function Coupon() {
   const subTotal = useAppSelector(subTotalSelector);
   const shopId = useAppSelector(shopSelector);
+  const { isLoading, code } = useAppSelector(couponSelector);
 
   const dispatch = useAppDispatch();
 
@@ -31,7 +33,7 @@ export default function Coupon() {
     try {
       const res = await dispatch(
         fetchCoupon({ couponCode: data.coupon, subTotal, shopId })
-      );
+      ).unwrap();
       console.log("inside component", res);
     } catch (error: any) {
       console.log(error);
@@ -57,7 +59,7 @@ export default function Coupon() {
                       {...field}
                       className="rounded-full"
                       placeholder="Promo / Coupon code"
-                      value={field.value}
+                      value={field.value || code}
                     />
                   </FormControl>
                 </FormItem>
@@ -69,7 +71,7 @@ export default function Coupon() {
                 type="submit"
                 className="w-full text-xl font-semibold py-5 "
               >
-                Apply
+                {isLoading ? "Applying..." : "Apply"}
               </Button>
               {couponInput && (
                 <Button
