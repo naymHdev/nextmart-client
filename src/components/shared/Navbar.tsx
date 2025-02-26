@@ -24,6 +24,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
 
+  // console.log("user__hasShop", user?.hasShop);
+
   const handleLogout = () => {
     logout();
     setIsLoading(true);
@@ -50,18 +52,23 @@ export default function Navbar() {
           <Button variant="outline" className="rounded-full p-0 size-10">
             <Heart />
           </Button>
-          <Link href='/cart'>
+          <Link href="/cart">
             <Button variant="outline" className="rounded-full p-0 size-10">
               <ShoppingBag />
             </Button>
           </Link>
           {user ? (
             <>
-              <Link href="/create-shop">
-                <Button className="rounded-full text-secondary">
-                  Create Shop
-                </Button>
-              </Link>
+              {user?.hasShop ? (
+                ""
+              ) : (
+                <Link href="/create-shop">
+                  <Button className="rounded-full text-secondary">
+                    Create Shop
+                  </Button>
+                </Link>
+              )}
+
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>

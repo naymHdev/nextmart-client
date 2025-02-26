@@ -42,6 +42,10 @@ const data = {
           title: "Manage Brands",
           url: "/user/shop/brand",
         },
+        {
+          title: "Manage Couppon",
+          url: "/user/shop/manage-cuppon",
+        },
       ],
     },
     {
