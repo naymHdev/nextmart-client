@@ -1,7 +1,12 @@
 import CouponTable from "@/components/modules/shop/manage-coupon/CouponTable";
 import CreateCouponModal from "@/components/modules/shop/manage-coupon/CreateCouponModal";
+import { getCuppons } from "@/services/coupon";
 
-const ManageCupponPage = () => {
+const ManageCupponPage = async () => {
+  const { data: coupons, meta } = await getCuppons();
+
+  // console.log("coupons__", coupons, "meta__", meta);
+
   return (
     <>
       <div>
@@ -10,10 +15,7 @@ const ManageCupponPage = () => {
           <CreateCouponModal />
         </div>
         <div>
-          <CouponTable
-            coupons={[]}
-            meta={{ page: 1, limit: 10, total: 100, totalPage: 10 }}
-          />
+          <CouponTable coupons={coupons} meta={meta} />
         </div>
       </div>
     </>

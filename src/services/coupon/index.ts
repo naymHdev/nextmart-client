@@ -21,3 +21,19 @@ export const createCoupon = async (data: FieldValues) => {
     return Error(error);
   }
 };
+
+// get Products Cuppons
+export const getCuppons = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/coupon`, {
+      next: {
+        tags: ["CUPPON"],
+      },
+    });
+    const data = await res.json();
+    // console.log("response", data);
+    return data;
+  } catch (error: any) {
+    return Error(error.message);
+  }
+};

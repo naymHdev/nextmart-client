@@ -18,6 +18,7 @@ const CouponTable = ({
   coupons: IProduct[];
   meta: IMeta;
 }) => {
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProductsId, setSelectedProductsId] = useState<string[]>([]);
 

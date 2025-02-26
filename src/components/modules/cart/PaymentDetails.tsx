@@ -64,7 +64,7 @@ export default function PaymentDetails() {
         toast.error(res.message, { id: orderLoading });
       }
 
-      console.log("responce", res);
+      // console.log("responce", res);
     } catch (error: any) {
       toast.error(error.message, { id: orderLoading });
     }

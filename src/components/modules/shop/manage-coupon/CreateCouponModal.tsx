@@ -49,7 +49,7 @@ export default function CreateCouponModal() {
         startDate: formatISO(data.startDate),
         endDate: formatISO(data.endDate),
       };
-      console.log(couponData);
+      // console.log(couponData);
 
       const res = await createCoupon(couponData);
 
